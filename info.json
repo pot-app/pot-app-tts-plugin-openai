@@ -1,15 +1,63 @@
 {
-  "id": "plugin.com.pot-app.lingva_tts",
+  "id": "plugin.com.pot-app.openai_tts",
   "plugin_type": "tts",
-  "icon": "lingva.svg",
-  "display": "Lingva",
-  "homepage": "https://github.com/pot-app/pot-app-tts-plugin-template",
-  "needs": [{ "key": "requestPath", "display": "请求地址" }],
+  "icon": "openai.svg",
+  "display": "OpenAI TTS",
+  "homepage": "https://github.com/pot-app/pot-app-tts-plugin-openai",
+  "needs": [
+    {
+      "key": "requestPath",
+      "display": "请求路径",
+      "type": "input"
+    },
+    {
+      "key": "apiKey",
+      "display": "API Key",
+      "type": "input"
+    },
+    {
+      "key": "model",
+      "display": "模型",
+      "type": "select",
+      "options": {
+        "tts-1": "tts-1",
+        "tts-1-hd": "tts-1-hd"
+      }
+    },
+    {
+      "key": "voice",
+      "display": "声音",
+      "type": "select",
+      "options": {
+        "alloy": "alloy",
+        "echo": "echo",
+        "onyx": "onyx",
+        "nova": "nova",
+        "shimmer": "shimmer"
+      }
+    },
+    {
+      "key": "speed",
+      "display": "语速",
+      "type": "select",
+      "options": {
+        "0.25": 0.25,
+        "0.5": 0.5,
+        "0.75": 0.75,
+        "1.0": 1.0,
+        "1.25": 1.25,
+        "1.5": 1.5,
+        "2.0": 2.0,
+        "3.0": 3.0,
+        "4.0": 4.0
+      }
+    }
+  ],
   "language": {
     "zh_cn": "zh",
-    "zh_tw": "zh_HANT",
+    "zh_tw": "zh",
     "en": "en",
-    "ja": "ja",
+    "ja": "jp",
     "ko": "ko",
     "fr": "fr",
     "es": "es",
@@ -19,17 +67,6 @@
     "tr": "tr",
     "pt_pt": "pt",
     "pt_br": "pt",
-    "vi": "vi",
-    "id": "id",
-    "th": "th",
-    "ms": "ms",
-    "ar": "ar",
-    "hi": "hi",
-    "mn_cy": "mn",
-    "mn_mo": "mn",
-    "km": "km",
-    "nb_no": "no",
-    "nn_no": "no",
-    "fa": "fa"
+    "vi": "vi"
   }
 }

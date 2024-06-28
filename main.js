@@ -1,19 +1,54 @@
-async function tts(text, lang, options = {}) {
+async function tts(text, _lang, options = {}) {
     const { config, utils } = options;
-    const { tauriFetch } = utils;
-    let { requestPath } = config;
-    if (requestPath === undefined || requestPath.length === 0) {
-        requestPath = "lingva.pot-app.com"
+    const { http } = utils;
+    const { fetch, Body } = http;
+
+    let { requestPath, apiKey, model, voice, speed } = config;
+
+    if (!requestPath) {
+        requestPath = "https://api.openai.com";
     }
-    if (!requestPath.startsWith('http')) {
-        requestPath = 'https://' + requestPath;
+    if (!/https?:\/\/.+/.test(requestPath)) {
+        requestPath = `https://${requestPath}`;
     }
-    const res = await tauriFetch(`${requestPath}/api/v1/audio/${lang}/${encodeURIComponent(text)}`);
+    if (requestPath.endsWith('/')) {
+        requestPath = requestPath.slice(0, -1);
+    }
+    if (!requestPath.endsWith('/audio/speech')) {
+        requestPath += '/v1/audio/speech';
+    }
+    if (!apiKey) {
+        throw "apiKey is required";
+    }
+    if (!model) {
+        model = "tts-1";
+    }
+    if (!voice) {
+        voice = "alloy";
+    }
+    if (!speed) {
+        speed = 1.0;
+    }
+    console.log(speed);
+    const res = await fetch(requestPath, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: Body.json({
+            model,
+            voice,
+            speed: parseFloat(speed),
+            input: text,
+        })
+        , responseType: 3
+    });
 
     if (res.ok) {
         let result = res.data;
-        if (result['audio']) {
-            return result['audio'];
+        if (result) {
+            return result;
         } else {
             throw JSON.stringify(result);
         }
